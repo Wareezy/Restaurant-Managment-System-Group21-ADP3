@@ -2,26 +2,47 @@ package za.ac.cput.domain;
 
 import org.apache.maven.model.Build;
 
-import javax.persistence.CascadeType;
-import javax.persistence.Embeddable;
-
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Objects;
 
-@Embeddable
+@Entity
 public class Order implements Serializable {
 
+    @Id
+    @Column(name = "orderId")
     private String orderId;
 
     private String orderDetails;
 
+    @Id
+    @Column(name = "customerId")
     private String customerId;
 
+    @Id
+    @Column(name = "waiterId")
     private String waiterId;
 
+    @Id
+    @Column(name = "chefId")
     private String chefId;
+
+
+
+    @OneToOne
+    @JoinColumn(name = "customer_Id", referencedColumnName = "customer_Id")
+    private Customer customer;
+
+
+    @OneToOne
+    @JoinColumn(name = "waiter_Id", referencedColumnName = "waiter_Id")
+    private Waiter waiter;
+
+
+    @OneToOne
+    @JoinColumn(name = "chef_Id", referencedColumnName = "chef_Id")
+    private Chef chef;
+
 
 //    @ManyToOne(cascade = CascadeType.ALL)
 
